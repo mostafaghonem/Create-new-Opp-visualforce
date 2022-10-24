@@ -1,0 +1,71 @@
+<apex:page controller="createOppController" tabStyle="Account">
+    <style> 
+    .dateFormat{display:none;} 
+    </style>
+
+    <apex:form id="frm">
+
+        <apex:pageBlock >
+            <apex:pageMessages />
+            <apex:pageBlockSection title="Opprtunity details">
+                <!-- <script type="javascript">
+                opp.RecordTypeId = 'service';
+                </script> -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Opprtunity Type"/>
+                    <apex:inputField value="{!opp.RecordTypeId}"/>
+                </apex:pageBlockSectionItem>
+
+                <!-- Empty area -->
+                <apex:pageBlockSection />
+
+                <!-- General fields -->
+                <apex:inputField value="{!opp.Name}"/>
+                <apex:inputField value="{!opp.AccountId}"/>
+                <apex:inputField value="{!opp.CloseDate}"/>
+                <apex:inputField value="{!opp.StageName}"/>
+                <apex:inputField value="{!opp.Interested_Location__c}"/>
+                <apex:inputField value="{!opp.Proposal_Price__c}" />
+
+
+                <!-- Onchange trigger for the service type -->
+                <apex:inputField value="{!opp.Services_Type__c}">
+                    <apex:actionSupport event="onchange" reRender="frm" />
+                </apex:inputField>
+
+                <!-- Empty area -->
+                <apex:pageBlockSection />
+
+                <!-- //Fields based on The service tyep -->
+                <!-- Electricity -->
+                <apex:inputField value="{!opp.Electricity_Amount__c}" rendered="{!opp.Services_Type__c == 'Electricity'}"></apex:inputField>
+                <apex:inputField value="{!opp.Electricity_Unit__c}" rendered="{!opp.Services_Type__c == 'Electricity'}"></apex:inputField>
+                <apex:inputField value="{!opp.Dimension__c}" rendered="{!opp.Services_Type__c == 'Electricity'}"></apex:inputField>
+                <apex:inputField value="{!opp.Area__c}" rendered="{!opp.Services_Type__c == 'Electricity'}"></apex:inputField>
+
+                <!-- Sewage connection -->
+                <apex:inputField value="{!opp.Area__c}" rendered="{!opp.Services_Type__c == 'Sewage Connection'}"></apex:inputField>
+                <apex:inputField value="{!opp.Time_of_deliver__c}" rendered="{!opp.Services_Type__c == 'Sewage Connection'}"></apex:inputField>
+
+                <!-- Telecommunication -->
+                <apex:inputField value="{!opp.Number_of_lines__c}" rendered="{!opp.Services_Type__c == 'Telecommunication'}"></apex:inputField>
+                <apex:inputField value="{!opp.Area__c}" rendered="{!opp.Services_Type__c == 'Telecommunication'}"></apex:inputField>
+
+                <!-- Water Take or Pay Agreement -->
+                <apex:inputField value="{!opp.Number_of_m3_Water__c}" rendered="{!opp.Services_Type__c == 'Water Take or Pay Agreement'}"></apex:inputField>
+                <apex:inputField value="{!opp.Contract_duration__c}" rendered="{!opp.Services_Type__c == 'Water Take or Pay Agreement'}"></apex:inputField>
+
+
+            </apex:pageBlockSection>
+
+            
+
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{! save }" value="Create" />
+                <!-- <apex:commandButton action="{! cancel }" value="Cancel" /> -->
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+
+
+    </apex:form>
+</apex:page>
